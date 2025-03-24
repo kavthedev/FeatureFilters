@@ -1,0 +1,17 @@
+@baseUrl = http://localhost:5008
+
+### TenantFeature
+GET {{baseUrl}}/feature/tenant
+X-Tenant-ID: premium-client
+
+### CountryFeature
+GET {{baseUrl}}/feature/country
+X-Country-Code: US
+
+### RoleFeature
+GET {{baseUrl}}/feature/role
+X-User-Roles: Admin
+
+### RolloutFeature
+GET {{baseUrl}}/feature/rollout
+X-Correlation-ID: user-abc-123
