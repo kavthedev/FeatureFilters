@@ -1,0 +1,134 @@
+# Build folders
+bin/
+obj/
+
+# User-specific files (personal IDE settings)
+*.user
+*.suo
+*.vs/
+
+# Temporary files
+*.log
+*.tlog
+*.tmp
+
+# Test results
+TestResults/
+
+# Package artifacts
+*.nupkg
+*.snupkg
+*.nuspec
+*.bak
+*.dSYM/
+
+# IDE-specific folders
+.vscode/
+.idea/
+
+# Rider IDE
+.idea/
+*.sln.iml
+
+# Dotnet tools
+.dotnet_tool/
+
+# NuGet package cache
+packages/
+# If using a centralized NuGet cache (global packages folder)
+.nuget/
+
+# Build Transients
+project.lock.json
+project.assets.json
+
+# StyleCop/Analyzers/Reports
+StyleCopCache/
+
+# Resharper files
+*.ReSharper
+*.ReSharper.user
+*.DotSettings.user
+
+# Azure Pipelines
+.azdo/
+
+# Coverlet output (code coverage)
+coverage/
+coverage.cobertura.xml
+coverage.opencover.xml
+
+# Local secrets (if using secrets manager)
+secrets.json
+
+# Dep files for MSBuild
+*.csproj.user
+*.vbproj.user
+
+# Local docker-compose overrides (if any)
+docker-compose.override.yml
+
+# If using EditorConfig (keep this if you want to commit your config)
+# .editorconfig
+
+# ========================
+# Specific to NuGet Packages
+# ========================
+
+# Don't include your generated package in the repo
+*.nupkg
+*.snupkg
+
+# If you generate a NuGet package automatically, the obj folder will contain:
+*.nuspec
+
+# Intermediate packaging files
+.nupkg.metadata/
+
+# If you manually create a package description
+package.nuspec
+
+# Local symbol cache if using symbols
+*.pdb
+
+# ========================
+# Optional - Git ignore patterns for your workflow
+# ========================
+
+# Ignore Rider or Visual Studio Code specific settings (if you use them)
+.idea/
+.vscode/
+
+# Ignore build output if you use dotnet pack directly
+artifacts/
+
+# Ignore dependency graph lock files (if using 'dotnet list package --format json')
+dependencies.lock.json
+
+# Temporary analysis files
+sonarqube/
+.ncrunchsolution
+ncrunchproject
+ncrunch/
+
+# Ignore local environment files if present
+.env
+
+# Optional: If using GitVersion
+GitVersion.yml
+
+# Optional: If using GitHub Actions
+.github/workflows/
+
+# Optional: If using Docker in development
+docker-compose.override.yml
+
+# Optional: Ignore local release notes drafts
+ReleaseNotes.md
+
+# Optional: If you use SourceLink
+*.pdb
+*.dll
+
+# Optional: Ignore global-using directives cache (for faster builds)
+obj\*.GlobalUsings.g.cs
