@@ -132,3 +132,11 @@ ReleaseNotes.md
 
 # Optional: Ignore global-using directives cache (for faster builds)
 obj\*.GlobalUsings.g.cs
+
+# Ignore build output from src, tests, and demo directories
+src/**/bin/
+src/**/obj/
+tests/**/bin/
+tests/**/obj/
+demo/**/bin/
+demo/**/obj/

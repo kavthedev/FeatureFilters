@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using FeatureFilters.Filters;
+using FeatureFilters.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.FeatureManagement;
@@ -8,36 +12,36 @@ using Xunit;
 
 namespace FeatureFilters.Tests;
 
-public class RoleFilterTests
+public class TenantFilterTests
 {
-    private static IConfiguration CreateMockConfiguration(string[] allowedRoles)
+    private static IConfiguration CreateMockConfiguration(string[] allowedTenants)
     {
         var configData = new Dictionary<string, string?>();
 
-        for (int i = 0; i < allowedRoles.Length; i++)
+        for (int i = 0; i < allowedTenants.Length; i++)
         {
-            configData[$"AllowedRoles:{i}"] = allowedRoles[i];
+            configData[$"AllowedTenants:{i}"] = allowedTenants[i];
         }
 
         return new ConfigurationBuilder().AddInMemoryCollection(configData).Build();
     }
 
-    private static Mock<HttpContext> CreateMockHttpContext(string roles)
+    private static Mock<HttpContext> CreateMockHttpContext(string tenantId)
     {
         var httpContextMock = new Mock<HttpContext>();
         var headerMock = new Mock<IHeaderDictionary>();
 
-        headerMock.Setup(h => h["X-User-Roles"]).Returns(new StringValues(roles));
+        headerMock.Setup(h => h["X-Tenant-ID"]).Returns(new StringValues(tenantId));
         httpContextMock.Setup(h => h.Request.Headers).Returns(headerMock.Object);
 
         return httpContextMock;
     }
 
     [Fact]
-    public async Task EvaluateAsync_NoAllowedRoles_ReturnsFalse()
+    public async Task EvaluateAsync_NoAllowedTenants_ReturnsFalse()
     {
         var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
-        var filter = new RoleFilter(httpContextAccessorMock.Object);
+        var filter = new TenantFilter(httpContextAccessorMock.Object);
         var context = new FeatureFilterEvaluationContext
         {
             Parameters = CreateMockConfiguration(Array.Empty<string>())
@@ -49,16 +53,16 @@ public class RoleFilterTests
     }
 
     [Fact]
-    public async Task EvaluateAsync_NoRolesHeader_ReturnsFalse()
+    public async Task EvaluateAsync_NoTenantId_ReturnsFalse()
     {
         var httpContextMock = CreateMockHttpContext(string.Empty);
         var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
         httpContextAccessorMock.Setup(x => x.HttpContext).Returns(httpContextMock.Object);
 
-        var filter = new RoleFilter(httpContextAccessorMock.Object);
+        var filter = new TenantFilter(httpContextAccessorMock.Object);
         var context = new FeatureFilterEvaluationContext
         {
-            Parameters = CreateMockConfiguration(new[] { "Admin" })
+            Parameters = CreateMockConfiguration(new[] { "tenant1" })
         };
 
         var result = await filter.EvaluateAsync(context);
@@ -67,16 +71,16 @@ public class RoleFilterTests
     }
 
     [Fact]
-    public async Task EvaluateAsync_RoleInAllowedList_ReturnsTrue()
+    public async Task EvaluateAsync_TenantIdInAllowedList_ReturnsTrue()
     {
-        var httpContextMock = CreateMockHttpContext("Admin");
+        var httpContextMock = CreateMockHttpContext("tenant1");
         var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
         httpContextAccessorMock.Setup(x => x.HttpContext).Returns(httpContextMock.Object);
 
-        var filter = new RoleFilter(httpContextAccessorMock.Object);
+        var filter = new TenantFilter(httpContextAccessorMock.Object);
         var context = new FeatureFilterEvaluationContext
         {
-            Parameters = CreateMockConfiguration(new[] { "Admin" })
+            Parameters = CreateMockConfiguration(new[] { "tenant1" })
         };
 
         var result = await filter.EvaluateAsync(context);
@@ -85,16 +89,16 @@ public class RoleFilterTests
     }
 
     [Fact]
-    public async Task EvaluateAsync_RoleNotInAllowedList_ReturnsFalse()
+    public async Task EvaluateAsync_TenantIdNotInAllowedList_ReturnsFalse()
     {
-        var httpContextMock = CreateMockHttpContext("User");
+        var httpContextMock = CreateMockHttpContext("tenant2");
         var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
         httpContextAccessorMock.Setup(x => x.HttpContext).Returns(httpContextMock.Object);
 
-        var filter = new RoleFilter(httpContextAccessorMock.Object);
+        var filter = new TenantFilter(httpContextAccessorMock.Object);
         var context = new FeatureFilterEvaluationContext
         {
-            Parameters = CreateMockConfiguration(new[] { "Admin" })
+            Parameters = CreateMockConfiguration(new[] { "tenant1" })
         };
 
         var result = await filter.EvaluateAsync(context);
@@ -108,10 +112,10 @@ public class RoleFilterTests
         var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
         httpContextAccessorMock.Setup(x => x.HttpContext).Returns((HttpContext?)null);
 
-        var filter = new RoleFilter(httpContextAccessorMock.Object);
+        var filter = new TenantFilter(httpContextAccessorMock.Object);
         var context = new FeatureFilterEvaluationContext
         {
-            Parameters = CreateMockConfiguration(new[] { "Admin" })
+            Parameters = CreateMockConfiguration(new[] { "tenant1" })
         };
 
         var result = await filter.EvaluateAsync(context);

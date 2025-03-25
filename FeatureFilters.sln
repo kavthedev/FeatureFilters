@@ -2,11 +2,11 @@
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureFilters", "FeatureFilters\FeatureFilters.csproj", "{A1B2C3D4-E5F6-7890-1234-56789ABCDEF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureFilters", "src\FeatureFilters\FeatureFilters.csproj", "{A1B2C3D4-E5F6-7890-1234-56789ABCDEF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureFilters.Demo", "FeatureFilters.Demo\FeatureFilters.Demo.csproj", "{12345678-90AB-CDEF-1234-567890ABCDEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureFilters.Demo", "src\FeatureFilters.Demo\FeatureFilters.Demo.csproj", "{12345678-90AB-CDEF-1234-567890ABCDEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureFilters.Tests", "FeatureFilters.Tests\FeatureFilters.Tests.csproj", "{ABCDEF12-3456-7890-ABCD-EF1234567890}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureFilters.Tests", "tests\FeatureFilters.Tests\FeatureFilters.Tests.csproj", "{ABCDEF12-3456-7890-ABCD-EF1234567890}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{3693B76E-AD00-42FB-8C3D-B16A7BC23293}"
 	ProjectSection(SolutionItems) = preProject

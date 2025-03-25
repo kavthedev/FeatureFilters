@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using FeatureFilters.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -90,7 +92,7 @@ public class PercentageRolloutFilterTests
     [Fact]
     public async Task EvaluateAsync_NonStickyMode_ReturnsRandomResult()
     {
-        var httpContextMock = new Mock<HttpContext>();
+        var httpContextMock = CreateMockHttpContext("user123");
         var headerMock = new Mock<IHeaderDictionary>();
         httpContextMock.Setup(h => h.Request.Headers).Returns(headerMock.Object);
 

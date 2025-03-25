@@ -1,9 +1,12 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using FeatureFilters.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.FeatureManagement;
 using Microsoft.Extensions.Primitives;
 using Moq;
+using Xunit;
 
 namespace FeatureFilters.Tests;
 
@@ -39,7 +42,7 @@ public class CountryFilterTests
         var filter = new CountryFilter(httpContextAccessorMock.Object);
         var context = new FeatureFilterEvaluationContext
         {
-            Parameters = CreateMockConfiguration(Array.Empty<string>())
+            Parameters = CreateMockConfiguration([])
         };
 
         var result = await filter.EvaluateAsync(context);
@@ -57,7 +60,7 @@ public class CountryFilterTests
         var filter = new CountryFilter(httpContextAccessorMock.Object);
         var context = new FeatureFilterEvaluationContext
         {
-            Parameters = CreateMockConfiguration(new[] { "US" })
+            Parameters = CreateMockConfiguration(["US"])
         };
 
         var result = await filter.EvaluateAsync(context);
@@ -75,7 +78,7 @@ public class CountryFilterTests
         var filter = new CountryFilter(httpContextAccessorMock.Object);
         var context = new FeatureFilterEvaluationContext
         {
-            Parameters = CreateMockConfiguration(new[] { "US" })
+            Parameters = CreateMockConfiguration(["US"])
         };
 
         var result = await filter.EvaluateAsync(context);
@@ -93,7 +96,7 @@ public class CountryFilterTests
         var filter = new CountryFilter(httpContextAccessorMock.Object);
         var context = new FeatureFilterEvaluationContext
         {
-            Parameters = CreateMockConfiguration(new[] { "US" })
+            Parameters = CreateMockConfiguration(["US"])
         };
 
         var result = await filter.EvaluateAsync(context);
@@ -110,7 +113,7 @@ public class CountryFilterTests
         var filter = new CountryFilter(httpContextAccessorMock.Object);
         var context = new FeatureFilterEvaluationContext
         {
-            Parameters = CreateMockConfiguration(new[] { "US" })
+            Parameters = CreateMockConfiguration(["US"])
         };
 
         var result = await filter.EvaluateAsync(context);
